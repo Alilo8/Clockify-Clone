@@ -9,7 +9,6 @@ const updateTaskRequest = (task) => {
         body: JSON.stringify({
             text: task.text,
             project: task.project,
-            time: task.time
         })
     });
 };

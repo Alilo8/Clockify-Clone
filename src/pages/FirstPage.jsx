@@ -9,7 +9,7 @@ const FirstPage = () => {
         window.location.reload(true)
     }
     return(
-        <div className="py-5 px-[6.5pc]">                    
+        <div className="py-5 px-[6.5pc] bg-white">                    
             <div className="text-center text-5xl py-20 leading-relaxed">
                 The most popular free <span className="text-blue-400">time tracker</span> for teams
             </div>

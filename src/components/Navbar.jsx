@@ -11,23 +11,6 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     // console.log(useStateContext)
     const { activeMenu, setActiveMenu } = useStateContext(false);
-    // const [activeMenu, setActiveMenu] = useState(true);
-    // const [screenSize, setScreenSize] = useState(undefined);
-    // useEffect(() => {
-    //     const handleResize = () => setScreenSize(window.innerWidth);
-    //     window.addEventListener('resize', handleResize);
-    //     handleResize();
-    //     return () => window.removeEventListener('resize', handleResize);
-    //   }, []);
-    // useEffect(() => {
-    //     console.log(1)
-    //     if(screenSize <= 768 ){
-    //         setActiveMenu(false);
-    //     }
-    //     else{
-    //         setActiveMenu(true);
-    //     }
-    // }, [screenSize])
     function navigate(location){
         window.location.href = location;
     }
@@ -57,16 +40,6 @@ const Navbar = () => {
                     <div className='flex lg:hidden'>
                             <button onClick={() => setMenuOpen(!menuOpen)} className='hover:bg-slate-200 rounded-md '><img src={menuIcon} alt="menu" /></button>
                     </div>
-                    {/* {activeMenu ? (
-                        <ul className='list-none hidden md:flex flex-row gap-10 justify-end items-center'>
-                            <li><a href=''>LOG IN</a></li>
-                            <li><button type='button' className='relative border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white p-3 '>SIGN UP FREE</button></li>
-                        </ul>
-                    ): (
-                        <div>
-                            <button onClick={() => setMenuOpen(!menuOpen)} className='hover:bg-slate-200 rounded-md '><img src={menuIcon} alt="menu" /></button>
-                        </div>
-                    )} */}
                 </div>
                 <div className='justify-center flex lg:hidden bg-slate-100 '>
                     {menuOpen && 

@@ -6,4 +6,5 @@ export { default as Clients} from './clients';
 export { default as Settings} from './settings';
 export { default as Tags} from './tags';
 export { default as Calendar} from './calendar';
+export { default as Project} from './project';
 

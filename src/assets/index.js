@@ -6,6 +6,7 @@ import plus_blue from './plus_blue.svg';
 import playButton from './playButton.svg';
 import deleteIcon from './deleteIcon.svg';
 import close_icon from './close_icon.svg';
+import search_icon from './search_icon.svg';
 
 import time_tracker from './time_tracker.svg';
 import calendar from './calendar.svg';
@@ -14,6 +15,7 @@ import projects from './projects.svg';
 import clients from './clients.svg';
 import tags from './tags.svg';
 import settings from './settings.svg';
+import dropdownIcon from './dropdownIcon.svg';
 
 export{
     logo,
@@ -23,7 +25,9 @@ export{
     plus_blue,
     playButton,
     deleteIcon,
-    close_icon
+    close_icon,
+    search_icon,
+    dropdownIcon,
 };
 
 export const SidebarData = [

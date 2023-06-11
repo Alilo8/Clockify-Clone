@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Sidebar = () => {
-const {activeMenu, setActiveMenu} = useStateContext(false);
+const {activeMenu} = useStateContext(false);
     const jsonObj = localStorage.getItem('access')
     let check = JSON.parse(jsonObj)['check'];
     return (

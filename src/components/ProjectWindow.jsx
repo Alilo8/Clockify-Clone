@@ -5,14 +5,15 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 const ProjectWindow = ({ handleProjectClick }) => {
     const {setSelectedProject, setOpenProjectWindow} = useStateContext();
-    const [searchInput, setSearchInput] = useState('')
-    const {isLoading, data: projects} = useQuery('projects',
+    const {data: projects} = useQuery('projects',
         readProjectRequest
     );
+    
+    const [searchInput, setSearchInput] = useState('')
     const [searchResult, setSearchResult] = useState(projects);
     useEffect(() => {
         if(searchInput){
-            setSearchResult(projects.filter((project) => {return project.text.match(searchInput)}));
+            setSearchResult(projects.filter((project) => {return project._id.match(searchInput)}));
             return;
         }
         setSearchResult(projects);
@@ -27,8 +28,8 @@ const ProjectWindow = ({ handleProjectClick }) => {
                     {searchResult === undefined ? (<div>Loading...</div>) : (
                         searchResult.length == 0 ? (<div>Not found create new! </div>) : (
                             searchResult.map((project) => (
-                                <div onClick={() => {setOpenProjectWindow(false); handleProjectClick(project.text)}} className='hover:bg-gray-200 p-2' key={project._id}>
-                                    {project.text}
+                                <div onClick={() => {setOpenProjectWindow(false); handleProjectClick(project._id)}} className='hover:bg-gray-200 p-2' key={project._id}>
+                                    {project._id}
                                 </div>
                             ))
                         )
