@@ -77,7 +77,7 @@ const projects = () => {
                         CREATE NEW PROJECT
                     </button>
                 </div>
-                <div className="flex xl:flex-row flex-col items-center bg-white my-5 justify-between shadow-lg border border-primaryBorder text-sm">
+                <div className="flex lg:flex-row flex-col w-fit lg:w-full items-center bg-white my-5 justify-between shadow-lg border border-primaryBorder text-sm">
                     <ul className="list-none flex">
                         <li className="py-5 px-3 text-gray-400">FILTER</li>
                         <li className="hover:shadow-[0_0px_20px_rgba(0,0,0,0.15)]">
@@ -103,7 +103,6 @@ const projects = () => {
                 <div className="my-10 border border-primaryBorder bg-white w-full">
                     <li className="flex list-none bg-primaryBorder p-5">
                         <ul className="w-full">Name</ul>
-                        <ul className="w-full">Client</ul>
                         <ul className="w-full">Tracked</ul>
                         <ul className="w-full">Access</ul>
                         <ul className="w-full">Status</ul>
@@ -115,7 +114,6 @@ const projects = () => {
                             <NavLink to={{pathname:'/project', search: project._id}} key={project._id}>
                                 <li key={project._id} className="flex list-none p-5 border-b border-b-primaryBorder hover:shadow-[0_0px_20px_rgba(0,0,0,0.15)]">
                                     <ul className="w-full">{project._id}</ul>
-                                    <ul className="w-full">{project.client}</ul>
                                     <ul className="w-full"><Timer isRunning={false} time={Date.parse(project.time)} /></ul>
                                     <ul className="w-full">{project.access}</ul>
                                     <ul className="w-full">{project.status}</ul>

@@ -6,8 +6,16 @@ import { useStateContext } from "./contexts/ContextProvider";
 
 function App() {
   const { activeMenu } = useStateContext();
-  const jsonObj = localStorage.getItem('access')
-  const check = JSON.parse(jsonObj)['check'];
+  let jsonObj = localStorage.getItem('access')
+  let check;
+  if(!jsonObj){
+    jsonObj = JSON.stringify({check: true})
+    localStorage.setItem('access',jsonObj);
+    check = true;
+  }
+  else
+    check = JSON.parse(jsonObj)['check'];
+  
   return (
     <div className=" text-slate-600">
       <BrowserRouter>

@@ -57,6 +57,13 @@ const tracker = () => {
     return (
         // Create
         <div className="bg-bgColor h-full overflow-hidden">
+            <div className="m-5 p-1 border border-primaryBorder bg-white justify-between flex">
+                <div>
+                    <input className="p-2 outline-none focus:outline-primaryBorder border hover:border-primaryBorder" placeholder="Add task to track time"></input>
+                    <input placeholder="Add task due (in hours)"></input>
+                </div>
+                <button>Add</button>
+            </div>
             <div className="border border-primaryBorder my-9 mx-5 bg-white shadow-lg overflow-hidden"> 
                 <div className="m-3 flex gap-5 items-center justify-between text-sm">
                     <input onChange={e => setText(e.target.value)} value={text} 
