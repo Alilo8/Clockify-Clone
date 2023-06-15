@@ -1,8 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { readProjectRequest, readTaskRequest } from '../api';
-import { useQuery } from 'react-query';
+import { readProjectRequest, readTaskRequest, readClientRequest, createClientRequest, createTaskRequest } from '../api';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import { NavLink } from 'react-router-dom';
+
+const Dropdown = ({setClient}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const {data: clients} = useQuery('clients',
+        readClientRequest
+    );
+    const queryClient = useQueryClient();
+    const { mutate: createClient } = useMutation(
+        (newClient) => createClientRequest(newClient),{
+            onSettled: () => {
+                queryClient.invalidateQueries('clients');
+            },
+        }
+    );
+    const [searchInput, setSearchInput] = useState('')
+    const [searchResult, setSearchResult] = useState(clients);
+    useEffect(() => {
+        if(searchInput && clients){
+            setSearchResult(clients.filter((client) => {return client._id.match(searchInput)}));
+            return;
+        }
+        setSearchResult(clients);
+    }, [searchInput, clients])
+    
+    return (
+        <div onBlur={() => setTimeout(() => setIsOpen(false),180)} className='bg-white divide-y divide-gray-100 flex-col w-full'>
+            <input onFocus={() => setIsOpen(true)} onChange={e => { setSearchInput(e.target.value);}} value={searchInput} type='search' 
+            className='border border-primaryBorder p-3 focus:border-gray-400 focus:outline-none' 
+            placeholder='Search or create client'></input>
+            
+            {isOpen &&
+                <div className='absolute bg-white shadow-xl overflow-hidden border border-primaryBorder'>
+                    {
+                        searchResult === undefined || searchResult.length == 0? <div className='m-2'>No clients</div> :
+                        searchResult.map((client) => (
+                            <button key={client._id} className='flex w-full hover:bg-bgColor p-1 px-3' onClick={() => {setIsOpen(false); setClient(client._id); setSearchInput(client._id)}}>
+                                {client._id}
+                            </button>
+                            )
+                        )
+                    }
+                    <button onClick={() => {
+                        if(searchInput){
+                            setClient(searchInput);
+                            createClient({_id: searchInput});
+                            setIsOpen(false);
+                            setSearchInput(searchInput)}
+                        }} className='hover:cursor-pointer hover:underline text-primary my-2 mx-3 flex'>Create new client</button>
+                </div>
+            }
+        </div>
+    )
+}
 
 const project = () => {
     const [currentTab, setCurrentTab] = useState('TASKS')
@@ -11,7 +64,7 @@ const project = () => {
         readProjectRequest
     );
     const tabData = [
-        {name: 'TASKS', link: projectsData ? <Tasks ids={projectsData.tasks} /> : null},
+        {name: 'TASKS', link: projectsData ? <Tasks ids={projectsData.tasks} projectName={projectsData._id}/> : null},
         {name: 'ACCESS', link: projectsData ? <Access access={projectsData.access} /> : null},
         {name: 'STATUS', link: projectsData ? <Status status={projectsData.status} /> : null},
         {name: 'Client', link: <Client />},
@@ -37,22 +90,37 @@ const project = () => {
     )
 }
 
-const Tasks = ({ids}) => {
+const Tasks = ({ids, projectName}) => {
+    const [name, setName] = useState('');
+    const [deadline, setDeadline] = useState(new Date());
+    const [client, setClient] = useState('');
     const {isLoading, data: tasks} = useQuery(['tasks', ids],
             readTaskRequest
         );
-
+    const queryClient = useQueryClient();
+    const { mutate: createTask } = useMutation(
+        (newTask) => createTaskRequest(newTask),{
+            onSettled: () => {
+                queryClient.invalidateQueries('tasks');
+            },
+        }
+    );
     return (
         <div className='p-5'>
-            <div className='flex flex-col xl:flex-row gap-2'>
+            <div className='flex flex-col xl:flex-row gap-2 justify-between'>
                 <div className='flex gap-2'>
-                    <input className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Add new task'></input>
-                    <input className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Assign task to'></input>
+                    <input onChange={e => setName(e.target.value)} className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Add new task'></input>
+                    <Dropdown setClient={setClient}/>
+                    <input type="date" onChange={e => setDeadline(e.target.value)} className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Add deadline'></input>
                 </div>
-                <div className='flex gap-2 justify-between'>
-                    <input className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Add deadline'></input>
-                    <button className="text-primary border border-primary hover:bg-primaryHover hover:text-white p-2">Add</button>
-                </div>
+                    <button onClick={() => {
+                        if(name){
+                            createTask({text:name, deadline, assignedTo:client, project: projectName});
+                            setName('');
+                            setDeadline(new Date());
+                            setClient('');
+                        }
+                    }} className="text-primary border border-primary hover:bg-primaryHover hover:text-white p-2">Add</button>
             </div>
             <div className='flex gap-2 mt-5'>
                 <div className='bg-primaryBorder p-2 w-full'>Pending</div>
@@ -68,11 +136,12 @@ const Tasks = ({ids}) => {
                 <div className='bg-primaryBorder p-2 w-full'>Task</div>
                 <div className='bg-primaryBorder p-2 w-full'>Assigned To</div>
             </div>
-            <div className='flex flex-col mt-5 gap-1'>
+            <div className='flex flex-col gap-1'>
                 {isLoading ? <div>Loading...</div> :
                     tasks.map((task) => (
-                        <div key={task._id}>
-                            {task.text}
+                        <div className='flex list-none p-2 border-b border-b-primaryBorder hover:shadow-[0_0px_20px_rgba(0,0,0,0.15)]' key={task._id}>
+                            <div className='p-2 w-full'>{task.text}</div>
+                            <div className='p-2 w-full'>{console.log(task)}</div>
                         </div>
                     ))
                 }
@@ -82,7 +151,7 @@ const Tasks = ({ids}) => {
 }
 const Access = ({access}) => {
     const [current, setCurrent] = useState(access);
-    return (
+    return ( 
         <div className='flex flex-col p-5'>
             <div className='hover:cursor-pointer' onClick={() => {setCurrent('Public')}}>
                 <input onChange={() => {}} checked={current==='Public'} type='radio' /> Public

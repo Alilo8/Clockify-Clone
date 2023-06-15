@@ -56,15 +56,34 @@ const tracker = () => {
     // })
     return (
         // Create
-        <div className="bg-bgColor h-full overflow-hidden">
-            <div className="m-5 p-1 border border-primaryBorder bg-white justify-between flex">
-                <div>
-                    <input className="p-2 outline-none focus:outline-primaryBorder border hover:border-primaryBorder" placeholder="Add task to track time"></input>
-                    <input placeholder="Add task due (in hours)"></input>
+        <div className="bg-bgColor h-full overflow-hidden p-5">
+            {/* <div className='flex shadow-lg border border-primaryBorder gap-2 bg-white justify-between'>
+                <div className='flex gap-2 p-2'>
+                    <input className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Add new task'></input>
+                    <input type="date" className='w-full hover:border-primaryBorder border focus:outline-primaryBorder p-2 placeholder:text-xs' placeholder='Add deadline'></input>
                 </div>
-                <button>Add</button>
+                <button className="text-primary border border-primary hover:bg-primaryHover hover:text-white p-2 m-2">Add</button>
             </div>
-            <div className="border border-primaryBorder my-9 mx-5 bg-white shadow-lg overflow-hidden"> 
+            <div className='flex shadow-lg border border-primaryBorder gap-2 bg-white justify-between my-10'>
+                <div className="p-4">Filter</div>
+                <div className="p-4">Range</div>
+                <div className="p-4">Status</div>
+                <div className="p-4">Team</div>
+                <button onClick={() => {}} className="text-primary border border-primary hover:bg-primaryHover hover:text-white p-2 m-2">APPLY FILTER</button>
+            </div>
+            <div className='flex shadow-lg border border-primaryBorder gap-1 bg-white justify-between my-10'>
+                <div className="py-4 flex justify-center w-full bg-primaryBorder">Task ID</div>
+                <div className="py-4 flex justify-center w-full bg-primaryBorder truncate">Task Name</div>
+                <div className="py-4 flex justify-center w-full bg-primaryBorder">Project</div>
+                <div className="py-4 flex justify-center w-full bg-primaryBorder">Due</div>
+                <div className="py-4 px-8 flex justify-center w-fit bg-primaryBorder">%</div>
+                <div className="py-4 flex justify-center w-full bg-primaryBorder">Filter</div>
+                <div className="py-4 flex justify-center w-full bg-primaryBorder">Start</div>
+                <div className="py-4 px-8 flex justify-center w-fit bg-primaryBorder">:</div>
+            </div> */}
+            <h1 className="text-2xl p-4">Time Tracker</h1>
+
+            <div className="border border-primaryBorder my-9 bg-white shadow-lg overflow-hidden"> 
                 <div className="m-3 flex gap-5 items-center justify-between text-sm">
                     <input onChange={e => setText(e.target.value)} value={text} 
                         className="w-8/12 hover:border hover:border-primaryBorder border border-transparent focus:outline-primaryBorder p-2 placeholder:text-xs" type="text" placeholder="What are you working on?">
@@ -99,7 +118,7 @@ const tracker = () => {
                 </div>
             </div>
             {/* Task list */}
-            <div className="border border-primaryBorder my-9 mx-5 bg-white flex-col">
+            <div className="border border-primaryBorder my-9 bg-white flex-col">
                 {isLoading ? (<div> Loading... </div> ): ( 
                     tasks.map((task) => (
                         <div className="border-b border-b-primaryBorder flex gap-5 justify-between p-3 hover:shadow-[0_0px_20px_rgba(0,0,0,0.15)]" key={task._id}> 

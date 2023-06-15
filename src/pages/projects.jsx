@@ -1,36 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { search_icon, dropdownIcon } from "../assets";
+import { search_icon } from "../assets";
 import { readClientRequest, readProjectRequest } from '../api';
 import { useQuery } from 'react-query';
-import { CreateProjectWindow, Timer } from "../components";
-
-const Dropdown = ({items, setItem, defaultItem, title}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <div onBlur={() => setTimeout(() => setIsOpen(false),180)} className='bg-white divide-y divide-gray-100 flex-col w-full'>
-            <button className='flex justify-between py-5 px-3 items-center' onClick={() => setIsOpen(!isOpen)}>
-                    {title}:&nbsp; <span className="text-primary">{defaultItem}</span> <img src={dropdownIcon}/> 
-            </button>
-            {isOpen &&
-                <div className='absolute bg-white shadow-xl overflow-hidden border border-primaryBorder w-44'>
-                    <button className='flex w-full hover:bg-bgColor p-1 px-3' onClick={() => {setIsOpen(false); setItem('All');}}>
-                        All
-                    </button>
-                    {
-                        !items ? <div>Loading...</div> :
-                        items.map((item) => (
-                            <button key={item._id} className='flex w-full hover:bg-bgColor p-1 px-3' onClick={() => {setIsOpen(false); setItem(item._id);}}>
-                                {item._id}
-                            </button>
-                            )
-                        )
-                    }
-                </div>
-            }
-        </div>
-    )
-}
+import { CreateProjectWindow, Timer, Dropdown } from "../components";
 
 const projects = () => {
     const [openCPWindow, setOpenCPWindow] = useState(false);

@@ -22,7 +22,7 @@ function App() {
         <div className="relative z-0 ">
           <Navbar />
           <Sidebar />
-          <div className={ `bg-bgColor h-screen ${check ? "": (activeMenu ? 'lg:ml-44 ' : 'lg:ml-16')}`}>
+          <div className={ `bg-bgColor ${check ? "": (activeMenu ? 'lg:ml-44 ' : 'lg:ml-16')}`}>
             <Routes>
               <Route path="/" element={<FirstPage />} />
               <Route path="/tracker" element={<Tracker />} />

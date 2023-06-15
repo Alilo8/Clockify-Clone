@@ -52,12 +52,12 @@ export const SidebarData = [
         link: '/projects'
     },
     {
-        name: 'CLIENTS',
+        name: 'TEAM',
         icon: clients,
         link: '/clients'
     },
     {
-        name: 'TAGS',
+        name: 'REPORT',
         icon: tags,
         link: '/tags'
     },

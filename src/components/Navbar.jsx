@@ -58,7 +58,6 @@ const Navbar = () => {
                     <div className="flex gap-10 items-center">
                         <ul className="flex gap-5 items-center">
                             <button onClick={() => setActiveMenu(!activeMenu)} className='hover:bg-slate-200 rounded-md'><img className="w-6" src={menuIcon} alt="menu" /></button>
-                            <a className="w-24" href=""><img src={logo}/></a>
                         </ul>
                     </div>
                     <div className="flex gap-5 justify-end items-center">

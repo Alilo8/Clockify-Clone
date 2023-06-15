@@ -9,6 +9,8 @@ const createTaskRequest = async (task) => {
         body: JSON.stringify({
             text: task.text,
             time: task.time,
+            deadline: task.deadline,
+            assigedTo: task.assigedTo,
             project: task.project
         })
     });
