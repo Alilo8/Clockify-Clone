@@ -6,6 +6,9 @@ import { useQuery } from 'react-query';
 import { CreateProjectWindow, Timer, Dropdown } from "../components";
 
 const projects = () => {
+    const jsonObj = localStorage.getItem('access')
+    const managerID = JSON.parse(jsonObj)['username'];
+    
     const [openCPWindow, setOpenCPWindow] = useState(false);
     const [status, setStatus] = useState('Active');
     const [access, setAccess] = useState('Public');
@@ -13,7 +16,7 @@ const projects = () => {
     const [name, setName] = useState('');
     const inputRef = useRef();
 
-    const {isLoading, data: projectsData} = useQuery('projects',
+    const {data: projectsData} = useQuery(['projects', 'bulk', managerID],
         readProjectRequest
     );
     const [filterProjects, setFilterProjects] = useState(projectsData);
@@ -83,11 +86,13 @@ const projects = () => {
                     {filterProjects === undefined ?
                         <div>Loading...</div> 
                         :
+                        filterProjects === null ? <div>No projects</div> 
+                        :
                         filterProjects.map((project) => (
                             <NavLink to={{pathname:'/project', search: project._id}} key={project._id}>
                                 <li key={project._id} className="flex list-none p-5 border-b border-b-primaryBorder hover:shadow-[0_0px_20px_rgba(0,0,0,0.15)]">
                                     <ul className="w-full">{project._id}</ul>
-                                    <ul className="w-full"><Timer isRunning={false} time={Date.parse(project.time)} /></ul>
+                                    <ul className="w-full"><Timer isRunning={false} time={project.time} /></ul>
                                     <ul className="w-full">{project.access}</ul>
                                     <ul className="w-full">{project.status}</ul>
                                 </li>

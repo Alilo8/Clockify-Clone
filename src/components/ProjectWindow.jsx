@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useStateContext } from '../contexts/ContextProvider';
 
 const ProjectWindow = ({ handleProjectClick }) => {
-    const {setSelectedProject, setOpenProjectWindow} = useStateContext();
+    const {setOpenProjectWindow} = useStateContext();
     const {data: projects} = useQuery('projects',
         readProjectRequest
     );

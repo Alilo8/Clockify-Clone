@@ -4,9 +4,11 @@ import help from './help.svg';
 import notification from './notification.svg';
 import plus_blue from './plus_blue.svg';
 import playButton from './playButton.svg';
+import pauseButton from './pauseButton.svg';
 import deleteIcon from './deleteIcon.svg';
 import close_icon from './close_icon.svg';
 import search_icon from './search_icon.svg';
+import logout_icon from './logout_icon.svg';
 
 import time_tracker from './time_tracker.svg';
 import calendar from './calendar.svg';
@@ -24,17 +26,19 @@ export{
     notification,
     plus_blue,
     playButton,
+    pauseButton,
     deleteIcon,
     close_icon,
     search_icon,
     dropdownIcon,
+    logout_icon,
 };
 
 export const SidebarData = [
     {
         name: 'TIME TRACKER',
         icon: time_tracker,
-        link: '/tracker'
+        link: '/'
     },
     {
         name: 'CALENDAR',

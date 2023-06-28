@@ -7,4 +7,6 @@ export { default as Settings} from './settings';
 export { default as Tags} from './tags';
 export { default as Calendar} from './calendar';
 export { default as Project} from './project';
+export { default as Login} from './login';
+export { default as Signup} from './signup';
 

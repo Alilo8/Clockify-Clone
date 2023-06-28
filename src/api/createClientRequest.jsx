@@ -1,7 +1,6 @@
 import { API_URL } from "./config";
 
 const createClientRequest = async (client) => {
-    console.log('ok');
     const response = await fetch(`${API_URL}/client`, {
         method: 'POST',
         headers: {

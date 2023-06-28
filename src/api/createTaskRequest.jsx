@@ -1,6 +1,7 @@
 import { API_URL } from "./config";
 
 const createTaskRequest = async (task) => {
+    console.log(task.assignedTo)
     const response = await fetch(`${API_URL}/task`, {
         method: 'POST',
         headers: {
@@ -9,9 +10,10 @@ const createTaskRequest = async (task) => {
         body: JSON.stringify({
             text: task.text,
             time: task.time,
-            deadline: task.deadline,
-            assigedTo: task.assigedTo,
-            project: task.project
+            project: task.project,
+            due: task.due,
+            assignedTo: task.assignedTo,
+            managerID: task.managerID,
         })
     });
     return await response.json();

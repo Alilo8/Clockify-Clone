@@ -9,7 +9,8 @@ const createProjectRequest = async (project) => {
         body: JSON.stringify({
             _id: project._id,
             client: project.client,
-            access: project.access
+            access: project.access,
+            managerID: project.managerID,
         })
     });
     return await response.json();

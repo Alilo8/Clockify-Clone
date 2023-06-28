@@ -9,3 +9,6 @@ export {default as readProjectRequest} from './readProjectRequest';
 export {default as createClientRequest} from './createClientRequest';
 export {default as readClientRequest} from './readClientRequest';
 
+export {default as readManagerRequest} from './readManagerRequest';
+export {default as createManagerRequest} from './createManagerRequest';
+export {default as updateManagerRequest} from './updateManagerRequest';

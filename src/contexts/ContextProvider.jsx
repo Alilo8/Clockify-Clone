@@ -2,19 +2,18 @@ import React, { createContext, useContext, useState } from 'react';
 
 export const StateContext = createContext();
 export const ContextProvider = ({children}) => {
-    const [activeMenu, setActiveMenu] = useState(true);
-    const [activeSidebar, setActiveSidebar] = useState(false);
+    const [activeMenu, setActiveMenu] = useState(false);
     const [openProjectWindow, setOpenProjectWindow] = useState(false);
-
+    const [managerID, setManagerID] = useState('');
     return (
         <section>
         <StateContext.Provider value={{
             activeMenu,
             setActiveMenu,
-            activeSidebar,
-            setActiveSidebar,
             openProjectWindow,
             setOpenProjectWindow,
+            managerID,
+            setManagerID
             }}> 
             {children}
         </StateContext.Provider>      
